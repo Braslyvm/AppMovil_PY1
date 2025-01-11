@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "51010532888",
+    "project_id": "fb-authentication-549f5",
+    "storage_bucket": "fb-authentication-549f5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51010532888:android:241230e5e3bf5a0d58f56d",
+        "android_client_info": {
+          "package_name": "com.tuempresa.appmovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51010532888-aiaa8boh14rn1tf82ednbcvvnuk8tgn3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBR-JK517NClnuDAeQlmkzMD5kPEcjvG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51010532888-aiaa8boh14rn1tf82ednbcvvnuk8tgn3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
