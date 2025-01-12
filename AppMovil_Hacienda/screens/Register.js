@@ -1,12 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { auth } from '../BD/Autentificacion';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import translateText from './translate';
+import { useGlobalContext } from './GlobalContext';
 
 export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [translatedContent, setTranslatedContent] = useState({
+    registroUsuario: 'Registro de Usuario',
+    correoElectronico: 'Correo Electrónico',
+    contrasena: 'Contraseña',
+    registrarseButton: 'Registrarse',
+    yaTienesCuenta: '¿Ya tienes una cuenta? Inicia sesión',
+    errorCorreoContrasena: 'Por favor, ingresa un correo y una contraseña.',
+  });
+  const { translate, dark } = useGlobalContext();
+
+  useEffect(() => {
+    const translateContent = async () => {
+      if (translate) {
+        const registroUsuario = await translateText('Registro de Usuario', 'es', 'en');
+        const correoElectronico = await translateText('Correo Electrónico', 'es', 'en');
+        const contrasena = await translateText('Contraseña', 'es', 'en');
+        const registrarseButton = await translateText('Registrarse', 'es', 'en');
+        const yaTienesCuenta = await translateText('¿Ya tienes una cuenta? Inicia sesión', 'es', 'en');
+        const errorCorreoContrasena = await translateText('Por favor, ingresa un correo y una contraseña.', 'es', 'en');
+        setTranslatedContent({
+          registroUsuario,
+          correoElectronico,
+          contrasena,
+          registrarseButton,
+          yaTienesCuenta,
+          errorCorreoContrasena,
+        });
+      } else {
+        setTranslatedContent({
+          registroUsuario: 'Registro de Usuario',
+          correoElectronico: 'Correo Electrónico',
+          contrasena: 'Contraseña',
+          registrarseButton: 'Registrarse',
+          yaTienesCuenta: '¿Ya tienes una cuenta? Inicia sesión',
+          errorCorreoContrasena: 'Por favor, ingresa un correo y una contraseña.',
+        });
+      }
+    };
+
+    translateContent();
+  }, [translate]);
 
   const handleRegister = () => {
     if (email && password) {
@@ -19,35 +62,37 @@ export default function RegisterScreen({ navigation }) {
           setError(err.message);
         });
     } else {
-      setError('Por favor, ingresa un correo y una contraseña.');
+      setError(translatedContent.errorCorreoContrasena);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Registro de Usuario</Text>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+    <View style={[styles.container, { backgroundColor: dark ? '#333' : '#fff' }]}>
+      <Text style={[styles.title, { color: dark ? '#fff' : '#000' }]}>{translatedContent.registroUsuario}</Text>
+      {error ? <Text style={[styles.error, { color: dark ? '#ff6347' : 'red' }]}>{error}</Text> : null}
       <TextInput
-        style={styles.input}
-        placeholder="Correo Electrónico"
+        style={[styles.input, { backgroundColor: dark ? '#555' : '#fff', color: dark ? '#fff' : '#000' }]}
+        placeholder={translatedContent.correoElectronico}
+        placeholderTextColor={dark ? '#ccc' : '#888'}
         keyboardType="email-address"
         autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
-        style={styles.input}
-        placeholder="Contraseña"
+        style={[styles.input, { backgroundColor: dark ? '#555' : '#fff', color: dark ? '#fff' : '#000' }]}
+        placeholder={translatedContent.contrasena}
+        placeholderTextColor={dark ? '#ccc' : '#888'}
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
-      <TouchableOpacity style={styles.boton} onPress={handleRegister}>
-        <Text style={styles.textoBoton}>Registrarse</Text>
+      <TouchableOpacity style={[styles.boton, { backgroundColor: dark ? '#444' : '#E5D9F2' }]} onPress={handleRegister}>
+        <Text style={[styles.textoBoton, { color: dark ? '#fff' : '#000' }]}>{translatedContent.registrarseButton}</Text>
       </TouchableOpacity>
-      
+
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.link}>¿Ya tienes una cuenta? Inicia sesión</Text>
+        <Text style={[styles.link, { color: dark ? '#1e90ff' : '#1e90ff' }]}>{translatedContent.yaTienesCuenta}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -59,7 +104,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#ffffff',
   },
   title: {
     fontSize: 24,
@@ -75,27 +119,22 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   error: {
-    color: 'red',
     marginBottom: 10,
     textAlign: 'center',
   },
   link: {
     marginTop: 20,
-    color: '#1e90ff',
     textDecorationLine: 'underline',
     fontSize: 16,
   },
   boton: {
-    backgroundColor: "#E5D9F2",
     padding: 15,
     borderRadius: 5,
-    alignItems: "center",
-    width: "80%",
+    alignItems: 'center',
+    width: '80%',
   },
-
   textoBoton: {
-    color: "#000",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });
