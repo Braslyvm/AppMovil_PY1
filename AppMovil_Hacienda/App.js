@@ -10,7 +10,7 @@ import WelcomeScreen from './screens/Welcome';
 import LoginScreen from './screens/Login';
 import HomeScreen from './screens/Home';
 import cambioscreens from './screens/TipoCambio';
-import ProfileScreen from './screens/Profile';
+import ConversorScreen from './screens/Conversor';
 import RegisterScreen from './screens/Register';
 
 
@@ -45,8 +45,8 @@ function MainApp() {
         }}
       />
       <Drawer.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="Convertir"
+        component={ConversorScreen}
         options={{
           headerStyle: { backgroundColor: '#E5D9F2' },
           headerTintColor: '#000',

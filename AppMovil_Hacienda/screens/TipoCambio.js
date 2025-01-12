@@ -12,33 +12,33 @@ function TipoCambio() {
 
   const obtenerTipoCambio = async () => {
     try {
-      // se obtienen los valores de compra del dolar
+      // Obtener los valores de compra y venta del dólar
       const respuestaDolar = await fetch("https://api.hacienda.go.cr/indicadores/tc/dolar");
       if (!respuestaDolar.ok) {
         throw new Error("Error al obtener el tipo de cambio del dólar");
       }
       const datosDolar = await respuestaDolar.json();
-
-
-      // // se obtienen los valores de compra del euro
+      setDolar(datosDolar); 
+  
+      // Obtener los valores del euro
       const respuestaEuro = await fetch("https://api.hacienda.go.cr/indicadores/tc/euro");
       if (!respuestaEuro.ok) {
         throw new Error("Error al obtener el tipo de cambio del euro");
       }
       const datosEuro = await respuestaEuro.json();
       setEuro(datosEuro);
-
+  
       setCargando(false);
     } catch (error) {
       console.error(error.message);
-      setCargando(false); 
+      setCargando(false);
     }
   };
-
+  
   if (cargando) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
-
+  
   return (
     <View style={estilos.contenedor}>
       <Text style={estilos.titulo}>Tipo de Cambio</Text>
@@ -54,16 +54,14 @@ function TipoCambio() {
           Fecha: {dolar.compra ? dolar.compra.fecha : "No disponible"}
         </Text>
       </View>
-
+  
       <View style={estilos.tarjeta}>
         <Text style={[estilos.tituloMoneda, estilos.textoNegro]}>Euro</Text>
         <Text style={[estilos.tasa, estilos.textoNegro]}>
-          Dólar: {euro.valor ? euro.valor : "No disponible"}
+          Dólares: {euro.dolares ? euro.dolares : "No disponible"}
         </Text>
-
         <Text style={[estilos.tasa, estilos.textoNegro]}>
-        <Text style={[estilos.tasa, estilos.textoNegro]}>
-            Colon: {euro.valor && dolar.compra ? (parseFloat(euro.valor) * parseFloat(dolar.compra.valor)) : "No disponible"}</Text>
+          Colones: {euro.colones ? euro.colones : "No disponible"}
         </Text>
         <Text style={[estilos.fecha, estilos.textoNegro]}>
           Fecha: {euro.fecha ? euro.fecha : "No disponible"}
