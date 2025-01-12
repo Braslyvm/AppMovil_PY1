@@ -43,6 +43,7 @@ export default function RegisterScreen({ navigation }) {
         onChangeText={setPassword}
       />
       <Button title="Registrarse" onPress={handleRegister} />
+      
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={styles.link}>¿Ya tienes una cuenta? Inicia sesión</Text>
       </TouchableOpacity>

@@ -1,7 +1,8 @@
-// BD/Autentificacion.jsx
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCBR-JK517NClnuDAeQlmkzMD5kPEcjvG0",
   authDomain: "fb-authentication-549f5.firebaseapp.com",
@@ -12,8 +13,13 @@ const firebaseConfig = {
   measurementId: "G-51010532888"
 };
 
-// Inicializar Firebase
+
 const app = initializeApp(firebaseConfig);
 
-// Exportar los servicios que necesitas
-export const auth = getAuth(app);
+
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
+
+
+export { auth };

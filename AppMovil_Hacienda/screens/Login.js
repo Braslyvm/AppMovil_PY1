@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert ,TouchableOpacity } from 'react-native';
-import { firebase } from '../BD/Autentificacion.jsx'; // Importamos firebase desde el archivo de configuración
+import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { auth } from '../BD/Autentificacion.jsx'; // Importa auth correctamente
+import { signInWithEmailAndPassword } from 'firebase/auth'; // Importa el método de inicio de sesión
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -8,14 +9,11 @@ export default function LoginScreen({ navigation }) {
 
   const handleLogin = () => {
     if (email && password) {
-      firebase.auth()
-        .signInWithEmailAndPassword(email, password)
+      signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-          // Si la autenticación es exitosa, redirigir al usuario
-          navigation.replace('MainApp'); // Redirige a la pantalla principal (cambia 'MainApp' por el nombre de tu pantalla)
+          navigation.replace('MainApp');
         })
         .catch((error) => {
-          // Manejar el error de autenticación
           const errorCode = error.code;
           const errorMessage = error.message;
           if (errorCode === 'auth/invalid-email') {
@@ -33,9 +31,11 @@ export default function LoginScreen({ navigation }) {
 
   const fastlogin = () => {
     navigation.replace('MainApp');
-  }
+  };
 
-  
+  const register = () => {
+    navigation.replace('Register');
+  };
 
   return (
     <View style={styles.center}>
@@ -54,9 +54,12 @@ export default function LoginScreen({ navigation }) {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Iniciar sesión" onPress={handleLogin} />
       <TouchableOpacity style={styles.button} onPress={fastlogin}>
-        <Text style={styles.buttonText}>Iniciar Rapido</Text>
+        <Text style={styles.buttonText}>Registrarse</Text>
+      </TouchableOpacity>
+      <Button title="Iniciar sesión" onPress={handleLogin} />
+      <TouchableOpacity style={styles.link} onPress={register}>
+        <Text style={styles.link}>Registrarse</Text>
       </TouchableOpacity>
     </View>
   );
@@ -81,5 +84,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
+  },
+  link: {
+    marginTop: 20,
+    color: '#1e90ff',
+    textDecorationLine: 'underline',
+    fontSize: 16,
   },
 });
