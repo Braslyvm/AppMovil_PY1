@@ -42,7 +42,9 @@ export default function RegisterScreen({ navigation }) {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Registrarse" onPress={handleRegister} />
+      <TouchableOpacity style={styles.boton} onPress={handleRegister}>
+        <Text style={styles.textoBoton}>Registrarse</Text>
+      </TouchableOpacity>
       
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={styles.link}>¿Ya tienes una cuenta? Inicia sesión</Text>
@@ -82,5 +84,18 @@ const styles = StyleSheet.create({
     color: '#1e90ff',
     textDecorationLine: 'underline',
     fontSize: 16,
+  },
+  boton: {
+    backgroundColor: "#E5D9F2",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    width: "80%",
+  },
+
+  textoBoton: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

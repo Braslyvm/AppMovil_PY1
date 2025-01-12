@@ -57,7 +57,9 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity style={styles.button} onPress={fastlogin}>
         <Text style={styles.buttonText}>Registrarse</Text>
       </TouchableOpacity>
-      <Button title="Iniciar sesión" onPress={handleLogin} />
+      <TouchableOpacity style={styles.boton} onPress={handleLogin}>
+        <Text style={styles.textoBoton}>Iniciar sesión</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={register}>
         <Text style={styles.link}>Registrarse</Text>
       </TouchableOpacity>
@@ -90,5 +92,18 @@ const styles = StyleSheet.create({
     color: '#1e90ff',
     textDecorationLine: 'underline',
     fontSize: 16,
+  },
+  boton: {
+    backgroundColor: "#E5D9F2",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    width: "80%",
+  },
+
+  textoBoton: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

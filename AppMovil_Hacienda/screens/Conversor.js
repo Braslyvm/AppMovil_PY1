@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, Button, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 function ConversorMonedas() {
@@ -87,12 +87,15 @@ function ConversorMonedas() {
         <Picker.Item label="De Euro a Dólar" value="euro_dolar" />
       </Picker>
 
-      <Button title="Convertir" onPress={realizarConversion} />
+      <TouchableOpacity style={estilos.boton} onPress={realizarConversion}>
+        <Text style={estilos.textoBoton}>Convertir</Text>
+      </TouchableOpacity>
 
       <Text style={estilos.resultado}>Resultado: {resultado.toFixed(2)}</Text>
     </View>
   );
 }
+
 const estilos = StyleSheet.create({
   contenedor: {
     flex: 1,
@@ -128,10 +131,16 @@ const estilos = StyleSheet.create({
 
   boton: {
     backgroundColor: "#E5D9F2",
-    padding: 10,
+    padding: 15,
     borderRadius: 5,
     alignItems: "center",
     width: "100%",
+  },
+
+  textoBoton: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 
   resultado: {
