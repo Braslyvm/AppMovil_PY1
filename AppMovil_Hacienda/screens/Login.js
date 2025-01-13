@@ -68,7 +68,7 @@ export default function LoginScreen({ navigation }) {
           } else if (errorCode === 'auth/wrong-password') {
             Alert.alert('Contraseña incorrecta', 'La contraseña ingresada es incorrecta.');
           } else {
-            Alert.alert('Error', errorMessage);
+            Alert.alert('Correo o Contraseña incorrecta', 'Porfavor ingrese un correo y una contraseña valido');
           }
         });
     } else {
